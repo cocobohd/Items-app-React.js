@@ -1,0 +1,11 @@
+.item {
+  margin: 20px;
+}
+.item--img {
+  width: 400px;
+  height: 300px;
+  border-radius: 10px;
+}
+.item--name {
+  text-align: center;
+}

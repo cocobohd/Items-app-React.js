@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app--items {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 40px;
+}
+
+.app--btn {
+  border: none;
+  cursor: pointer;
+  width: 200px;
+  font-size: 24px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.modal--add {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.modal--add.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.app--btn--sort {
+  display: flex;
+  flex-direction: column;
+  padding-top: 100px;
+}
+
+.app--btn:hover {
+  transition: 0.5s;
+  background-color: greenyellow;
+}
+
+.modal--title {
+  font-size: 32px;
+  padding-bottom: 20px;
+}
+
+.modal--btns {
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.modal--btns button {
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  width: 60px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.modal--btns button:hover:first-child {
+  transition: 0.4s;
+  background-color: greenyellow;
+}
+
+.modal--btns button:hover:last-child {
+  transition: 0.4s;
+  background-color: red;
+}
+
+.modal--info input {
+  width: 100%;
+}
+
+#sort {
+  width: 200px;
+}
