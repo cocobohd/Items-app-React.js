@@ -10,6 +10,7 @@ export default function App() {
   let width = React.createRef()
   let heigth = React.createRef()
   let weigth = React.createRef()
+  
   const [isActive, setActive] = React.useState(false)
   const [array, setArray] = React.useState([])
   const [modalVisible, setModalVisible] = React.useState(false)
@@ -25,19 +26,29 @@ export default function App() {
     />
   })
 
+  React.useEffect(() => {
+    const items = JSON.parse(localStorage.getItem("My Array"));
+    if (items) {
+      setArray(items);
+    }
+  }, []);
+
   function addToArray() {
     let newItem = {
       id: array.length + 1,
       imageUrl: img.current.value,
       name: name.current.value,
       count: parseInt(count.current.value),
-      width: width.current.value,
-      heigth: heigth.current.value,
+      size: {
+        width: width.current.value,
+        heigth: heigth.current.value,
+      },
       weigth: weigth.current.value,
     }
     array.push(newItem)
     clear()
     setActive(false)
+    localStorage.setItem("My Array",JSON.stringify(array))
   }
 
   function clear() {
