@@ -41,10 +41,10 @@ export default function App() {
       id: Math.floor(Math.random() * 100000),
       imageUrl: img.current.value,
       name: name.current.value,
-      count: parseInt(count.current.value),
+      count: count.current.value,
       size: {
-        width: parseInt(width.current.value),
-        heigth: parseInt(heigth.current.value),
+        width: width.current.value,
+        heigth: heigth.current.value,
       },
       weight: weight.current.value,
       comments: []
@@ -135,10 +135,10 @@ export default function App() {
           <p>Name</p>
           <input id="name" type="text" ref={name} onChange={validation} />
           <p>Count</p>
-          <input id="count" type="text" ref={count} onChange={validation} />
+          <input id="count" type="number" ref={count} onChange={validation} />
           <p>Size</p>
-          <input id="width" type="text" placeholder="Width" ref={width} onChange={validation} />
-          <input id="heigth" type="text" placeholder="Heigth" ref={heigth} onChange={validation} />
+          <input id="width" type="number" placeholder="Width" ref={width} onChange={validation} />
+          <input id="heigth" type="number" placeholder="Heigth" ref={heigth} onChange={validation} />
           <p>Weigth</p>
           <input id="weigth" type="text" ref={weight} onChange={validation} />
         </div>
