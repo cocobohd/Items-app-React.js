@@ -3,27 +3,35 @@
   background-color: white;
   border-radius: 10px;
 }
+
 .item--img {
   width: 400px;
   height: 300px;
   border-radius: 10px 10px 0 0;
+  cursor: pointer;
 }
+
 .item--name, .item--count {
   text-align: center;
 }
+
 .img--delete {
   width: 50px;
   height: 50px;
   position: absolute;
   right: -50px;
-  top: 10px;
+  top: 25px;
   transition: all 0.3s ease;
 }
+
 .item--text {
   position: relative;
   overflow: hidden;
+  padding: 20px 0;
 }
-.item--text:hover .img--delete{
+
+.item:hover .img--delete{
   right: 0;
   cursor: pointer;
 }
+

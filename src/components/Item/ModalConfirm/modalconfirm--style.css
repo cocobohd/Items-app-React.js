@@ -1,5 +1,5 @@
 .confirm {
-  height: 100vh;
+  height: 110vh;
   width: 100%;
   position: fixed;
   top: -20px;
@@ -11,11 +11,14 @@
   opacity: 0;
   pointer-events: none;
   transition: 0.5s;
+  z-index: 1;
 }
+
 .confirm.active {
   opacity: 1;
   pointer-events: all;
 }
+
 .confirm--content {
   padding: 20px;
   border-radius: 12px;
@@ -24,22 +27,29 @@
   transition: 0.4s all;
   width: 155px;
 }
+
 .confirm--content.active {
   transform: scale(1);
 }
+
 .confirm--btns {
+  padding-top: 10px;
   display: flex;
   justify-content: center;
 }
+
 .confirm--btns button {
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
   margin: 0 10px;
   width: 50px;
 }
 
-
 .confirm--btns button:hover:first-child {
   background: greenyellow;
 }
+
 .confirm--btns button:hover:last-child {
   transition: 0.5s;
   background: red;

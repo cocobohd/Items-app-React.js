@@ -3,13 +3,16 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
+  
 }
 
 .app {
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
+  
+  background: linear-gradient(to bottom, #68EACC 0%, #497BE8 100%);
 }
 
 .app--items {
@@ -42,6 +45,11 @@
   display: flex;
   flex-direction: column;
   padding-top: 100px;
+}
+
+.app--btn--sort  label {
+  font-size: 24px;
+  color: white;
 }
 
 .app--btn:hover {
@@ -81,8 +89,18 @@
 
 .modal--info input {
   width: 100%;
+  border: none;
+  height: 25px;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 #sort {
   width: 200px;
+}
+
+#selector {
+  border: none;
+  border-radius: 5px;
+  height: 25px;
 }

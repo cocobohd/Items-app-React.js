@@ -1,0 +1,10 @@
+.comments--div {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  background-color: #fff;
+  border-radius: 5px;
+}
+.comments--text, .comments--date {
+  padding: 20px;
+}

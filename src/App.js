@@ -9,7 +9,7 @@ export default function App() {
   let count = React.createRef()
   let width = React.createRef()
   let heigth = React.createRef()
-  let weigth = React.createRef()
+  let weight = React.createRef()
 
   const [isActive, setActive] = React.useState(false)
   const [array, setArray] = React.useState([])
@@ -17,6 +17,7 @@ export default function App() {
   let generalRender = array.map((item, index) => {
     return <Item
       key={item.id}
+      id={item.id}
       imageUrl={item.imageUrl}
       name={item.name}
       count={item.count}
@@ -42,10 +43,10 @@ export default function App() {
       name: name.current.value,
       count: parseInt(count.current.value),
       size: {
-        width: width.current.value,
-        heigth: heigth.current.value,
+        width: parseInt(width.current.value),
+        heigth: parseInt(heigth.current.value),
       },
-      weigth: weigth.current.value,
+      weight: weight.current.value,
     }
     array.push(newItem)
     clear()
@@ -59,7 +60,7 @@ export default function App() {
     count.current.value = ''
     width.current.value = ''
     heigth.current.value = ''
-    weigth.current.value = ''
+    weight.current.value = ''
   }
 
   function sortByCount() {
@@ -91,7 +92,7 @@ export default function App() {
 
   function validation() {
     setActive(true)
-    if (img.current.value !== '' && name.current.value !== '' && count.current.value !== '' && width.current.value !== '' && heigth.current.value !== '' && weigth.current.value !== '') {
+    if (img.current.value.trim() != 0 && name.current.value.trim() != 0 && count.current.value.trim() != 0 && width.current.value.trim() != 0 && heigth.current.value.trim() != 0 && weight.current.value.trim() != 0) {
       setModalVisible(true)
     } else {
       setModalVisible(false)
@@ -137,7 +138,7 @@ export default function App() {
           <input id="width" type="text" placeholder="Width" ref={width} onChange={validation} />
           <input id="heigth" type="text" placeholder="Heigth" ref={heigth} onChange={validation} />
           <p>Weigth</p>
-          <input id="weigth" type="text" ref={weigth} onChange={validation} />
+          <input id="weigth" type="text" ref={weight} onChange={validation} />
         </div>
         <div className="modal--btns">
           <button className={modalVisible ? "modal--add active" : "modal--add"} onClick={addToArray}>Add</button>
