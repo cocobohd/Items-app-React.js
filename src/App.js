@@ -14,7 +14,7 @@ export default function App() {
   const [isActive, setActive] = React.useState(false)
   const [array, setArray] = React.useState([])
   const [modalVisible, setModalVisible] = React.useState(false)
-  let generalRender = array.map(item => {
+  let generalRender = array.map((item, index) => {
     return <Item
       key={item.id}
       imageUrl={item.imageUrl}
@@ -23,7 +23,8 @@ export default function App() {
       weight={item.weight}
       size={item.size}
       comments={item.comments}
-      func={deleteTask}
+      index = {index}
+      func={() => deleteTask(index)}
     />
   })
 
@@ -36,7 +37,7 @@ export default function App() {
 
   function addToArray() {
     let newItem = {
-      id: array.length + 1,
+      id: Math.floor(Math.random() * 100000),
       imageUrl: img.current.value,
       name: name.current.value,
       count: parseInt(count.current.value),
@@ -67,6 +68,7 @@ export default function App() {
       (a, b) => { return a.count > b.count ? 1 : -1 }
     )
     setArray(newItems)
+    localStorage.setItem("My Array", JSON.stringify(newItems))
   }
 
   function sortByName() {
@@ -75,6 +77,7 @@ export default function App() {
       (a, b) => { return a.name > b.name ? 1 : -1 }
     )
     setArray(newItems)
+    localStorage.setItem("My Array", JSON.stringify(newItems))
   }
 
   function changeListener() {
@@ -86,7 +89,8 @@ export default function App() {
     }
   }
 
-  function oh() {
+  function validation() {
+    setActive(true)
     if (img.current.value !== '' && name.current.value !== '' && count.current.value !== '' && width.current.value !== '' && heigth.current.value !== '' && weigth.current.value !== '') {
       setModalVisible(true)
     } else {
@@ -97,7 +101,7 @@ export default function App() {
   function deleteTask(index) {
     let getLocalStorage = localStorage.getItem('My Array')
     let listArr = JSON.parse(getLocalStorage)
-    console.log(index)
+    listArr.splice(index, 1)
     localStorage.setItem('My Array', JSON.stringify(listArr))
     setArray(listArr)
   }
@@ -105,7 +109,7 @@ export default function App() {
   return (
     <div className="app" onLoad={sortByName}>
       <div className="app--btn--sort">
-        <button className="app--btn" onClick={() => setActive(true)}>
+        <button className="app--btn" onClick={() => validation()}>
           Add new Item
         </button>
         <label htmlFor="sort">Choose a sort:</label>
@@ -124,16 +128,16 @@ export default function App() {
         </h1>
         <div className="modal--info">
           <p>Img Url</p>
-          <input id="img" type="text" ref={img} onChange={oh} />
+          <input id="img" type="text" ref={img} onChange={validation} />
           <p>Name</p>
-          <input id="name" type="text" ref={name} onChange={oh} />
+          <input id="name" type="text" ref={name} onChange={validation} />
           <p>Count</p>
-          <input id="count" type="text" ref={count} onChange={oh} />
+          <input id="count" type="text" ref={count} onChange={validation} />
           <p>Size</p>
-          <input id="width" type="text" placeholder="Width" ref={width} onChange={oh} />
-          <input id="heigth" type="text" placeholder="Heigth" ref={heigth} onChange={oh} />
+          <input id="width" type="text" placeholder="Width" ref={width} onChange={validation} />
+          <input id="heigth" type="text" placeholder="Heigth" ref={heigth} onChange={validation} />
           <p>Weigth</p>
-          <input id="weigth" type="text" ref={weigth} onChange={oh} />
+          <input id="weigth" type="text" ref={weigth} onChange={validation} />
         </div>
         <div className="modal--btns">
           <button className={modalVisible ? "modal--add active" : "modal--add"} onClick={addToArray}>Add</button>

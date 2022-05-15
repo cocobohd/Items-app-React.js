@@ -1,0 +1,47 @@
+.confirm {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: -20px;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
+}
+.confirm.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.confirm--content {
+  padding: 20px;
+  border-radius: 12px;
+  background-color: wheat;
+  transform: scale(0.5);
+  transition: 0.4s all;
+  width: 155px;
+}
+.confirm--content.active {
+  transform: scale(1);
+}
+.confirm--btns {
+  display: flex;
+  justify-content: center;
+}
+.confirm--btns button {
+  margin: 0 10px;
+  width: 50px;
+}
+
+
+.confirm--btns button:hover:first-child {
+  background: greenyellow;
+}
+.confirm--btns button:hover:last-child {
+  transition: 0.5s;
+  background: red;
+  color: white;
+}
