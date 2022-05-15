@@ -15,6 +15,8 @@ export default function Item(prop) {
       key={item.id}
       text={item.desctiption}
       date={item.date}
+      index={index}
+      func={() => deleteComment(index)}
     />
   })
 
@@ -25,7 +27,26 @@ export default function Item(prop) {
 
   function send() {
     const date = new Date()
-    const time = `${date.getHours()}:${date.getMinutes()} ${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`
+    let hours = date.getHours()
+    let minutes = date.getMinutes()
+    let day = date.getDate()
+    let month = date.getMonth()
+    let year = date.getFullYear()
+
+    if (minutes <= 9) {
+      minutes = '0' + minutes
+    }
+    if (hours <= 9) {
+      hours = '0' + hours
+    }
+    if (day <= 9) {
+      day = '0' + day
+    }
+    if (month <= 9) {
+      month = '0' + month
+    }
+
+    const time = `${hours}:${minutes} | ${day}.${month}.${year}`
     const newComment = {
       id: Math.floor(Math.random()*100000),
       productId: prop.id,
@@ -39,17 +60,25 @@ export default function Item(prop) {
   }
 
   function valid() {
+    setModalView(true)
+    // eslint-disable-next-line
     if (comment.current.value.trim() != 0 ) {
       setModalVisible(true)
     } else {
       setModalVisible(false)
     }
   }
+
+  function deleteComment(index) {
+    let arr = sendComment.concat()
+    arr.splice(index, 1)
+    setSendComment(arr)
+  }
   
   return (
     <div className="item">
       <div className="item--info">
-        <img onClick={() => setModalView(true)} className="item--img" src={prop.imageUrl} alt="Sorry your link is don't load"/>
+        <img onClick={() => valid()} className="item--img" src={prop.imageUrl} alt="Sorry your link is don't load"/>
         <div className="item--text">
           <h1 className="item--name">
             {prop.name}
@@ -85,8 +114,9 @@ export default function Item(prop) {
               Weight: {prop.weight}
             </p>
             <p className="modalview--comments">
-              Comments: {renderComments}
+              Comments: {sendComment.length}
             </p>
+              {renderComments}
             <p>
               Leave a comment?
             </p>

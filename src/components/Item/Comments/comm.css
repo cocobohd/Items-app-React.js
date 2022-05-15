@@ -1,10 +1,31 @@
 .comments--div {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 10px 0;
   background-color: #fff;
   border-radius: 5px;
+  position: relative;
 }
 .comments--text, .comments--date {
-  padding: 20px;
+  padding: 10px;
+}
+
+.comments--text {
+  width: 65%;
+}
+
+.comment--delete {
+  position: absolute;
+  cursor: pointer;
+  width: 15px;
+  top: -10px;
+  right: -4px;
+  border: none;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+}
+
+.comment--delete:hover {
+  background-color: red;
 }

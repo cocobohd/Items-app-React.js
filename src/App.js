@@ -92,6 +92,7 @@ export default function App() {
 
   function validation() {
     setActive(true)
+    // eslint-disable-next-line
     if (img.current.value.trim() != 0 && name.current.value.trim() != 0 && count.current.value.trim() != 0 && width.current.value.trim() != 0 && heigth.current.value.trim() != 0 && weight.current.value.trim() != 0) {
       setModalVisible(true)
     } else {
