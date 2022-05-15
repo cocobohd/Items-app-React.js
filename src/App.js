@@ -47,6 +47,7 @@ export default function App() {
         heigth: parseInt(heigth.current.value),
       },
       weight: weight.current.value,
+      comments: []
     }
     array.push(newItem)
     clear()

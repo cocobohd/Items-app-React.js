@@ -3,13 +3,20 @@ import "./item--style.css"
 import ModalConfirm from "./ModalConfirm/ModalConfirm"
 import ModalView from "./ModalView/ModalView"
 import Comm from "./Comments/Comm";
+import Edit from "./Edit/Edit";
 
 export default function Item(prop) {
   const [confirmActive, setConfirmActive] = React.useState(false)
   const [modalView, setModalView] = React.useState(false)
   const [sendComment, setSendComment] = React.useState([])
   const [modalVisible, setModalVisible] = React.useState(false)
+  const [editView, setEditView] = React.useState(false)
   const comment = React.createRef()
+  let count = React.createRef()
+  let width = React.createRef()
+  let heigth = React.createRef()
+  let weight = React.createRef()
+
   let renderComments = sendComment.map((item, index) => {
     return <Comm
       key={item.id}
@@ -55,8 +62,10 @@ export default function Item(prop) {
     }
 
     setModalView(false)
-    comment.current.value = ""
+    
     sendComment.push(newComment)
+    comment.current.value = ""
+    console.log(sendComment)
   }
 
   function valid() {
@@ -75,6 +84,10 @@ export default function Item(prop) {
     setSendComment(arr)
   }
   
+  function edit() {
+    setEditView(true)
+
+  }
   return (
     <div className="item">
       <div className="item--info">
@@ -113,17 +126,37 @@ export default function Item(prop) {
             <p className="modalview--weight">
               Weight: {prop.weight}
             </p>
+            <button onClick={() => edit()} className="edit--btn">edit</button>
             <p className="modalview--comments">
               Comments: {sendComment.length}
             </p>
               {renderComments}
             <p>
-              Leave a comment?
+              Leave comment?
             </p>
             <textarea className="modalview--textarea" type="textarea" ref={comment} onChange={valid}/>
             <button className={modalVisible ? "modalview--btn active" : "modalview--btn"} onClick={() => send()}>Send!</button>
           </div>
       </ModalView>
+
+      <Edit isActive={editView} setActive={setEditView}>
+        <div className="edit--div">
+          <p className="modalview--stock">
+            In stock:
+          </p>
+          <input type="text" ref={count}/>
+          <p className="modalview--size">
+            Width and Height: 
+          </p>
+          <input type="text" ref={width}/>
+          <input type="text" ref={heigth}/>
+          <p className="modalview--weight">
+            Weight:
+          </p>
+          <input type="text" ref={weight}/>
+          <button>Save</button>
+        </div>
+      </Edit>
     </div>
   )
 }
