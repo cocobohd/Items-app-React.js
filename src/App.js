@@ -10,12 +10,12 @@ export default function App() {
   let width = React.createRef()
   let heigth = React.createRef()
   let weigth = React.createRef()
-  
+
   const [isActive, setActive] = React.useState(false)
   const [array, setArray] = React.useState([])
   const [modalVisible, setModalVisible] = React.useState(false)
-  const itemRend = array.map(item => {
-    return <Item 
+  let generalRender = array.map(item => {
+    return <Item
       key={item.id}
       imageUrl={item.imageUrl}
       name={item.name}
@@ -23,6 +23,7 @@ export default function App() {
       weight={item.weight}
       size={item.size}
       comments={item.comments}
+      func={deleteTask}
     />
   })
 
@@ -48,7 +49,7 @@ export default function App() {
     array.push(newItem)
     clear()
     setActive(false)
-    localStorage.setItem("My Array",JSON.stringify(array))
+    localStorage.setItem("My Array", JSON.stringify(array))
   }
 
   function clear() {
@@ -63,7 +64,7 @@ export default function App() {
   function sortByCount() {
     const copyData = array.concat()
     let newItems = copyData.sort(
-      (a, b)=>{return a.count > b.count ? 1 : -1}
+      (a, b) => { return a.count > b.count ? 1 : -1 }
     )
     setArray(newItems)
   }
@@ -71,31 +72,38 @@ export default function App() {
   function sortByName() {
     const copyData = array.concat()
     let newItems = copyData.sort(
-      (a, b)=>{return a.name > b.name ? 1 : -1}
+      (a, b) => { return a.name > b.name ? 1 : -1 }
     )
     setArray(newItems)
   }
-  
-  function changeListener(){
+
+  function changeListener() {
     let value = document.getElementById("selector")
-      if (value.value === "name") {
-        sortByName()
-      } else if (value.value === "count") {
-        sortByCount()
-      }
+    if (value.value === "name") {
+      sortByName()
+    } else if (value.value === "count") {
+      sortByCount()
+    }
   }
 
   function oh() {
     if (img.current.value !== '' && name.current.value !== '' && count.current.value !== '' && width.current.value !== '' && heigth.current.value !== '' && weigth.current.value !== '') {
       setModalVisible(true)
-    }else {
+    } else {
       setModalVisible(false)
     }
-    
+  }
+
+  function deleteTask(index) {
+    let getLocalStorage = localStorage.getItem('My Array')
+    let listArr = JSON.parse(getLocalStorage)
+    console.log(index)
+    localStorage.setItem('My Array', JSON.stringify(listArr))
+    setArray(listArr)
   }
 
   return (
-    <div className="app">
+    <div className="app" onLoad={sortByName}>
       <div className="app--btn--sort">
         <button className="app--btn" onClick={() => setActive(true)}>
           Add new Item
@@ -107,7 +115,7 @@ export default function App() {
         </select>
       </div>
       <div className="app--items">
-        {itemRend}
+        {generalRender}
       </div>
 
       <Modal isActive={isActive} setActive={setActive}>
@@ -116,16 +124,16 @@ export default function App() {
         </h1>
         <div className="modal--info">
           <p>Img Url</p>
-          <input id="img" type="text" ref={img} onChange={oh}/>
+          <input id="img" type="text" ref={img} onChange={oh} />
           <p>Name</p>
-          <input id="name" type="text" ref={name} onChange={oh}/>
+          <input id="name" type="text" ref={name} onChange={oh} />
           <p>Count</p>
-          <input id="count" type="text" ref={count} onChange={oh}/>
+          <input id="count" type="text" ref={count} onChange={oh} />
           <p>Size</p>
-          <input id="width" type="text" placeholder="Width" ref={width} onChange={oh}/>
-          <input id="heigth" type="text" placeholder="Heigth" ref={heigth} onChange={oh}/>
+          <input id="width" type="text" placeholder="Width" ref={width} onChange={oh} />
+          <input id="heigth" type="text" placeholder="Heigth" ref={heigth} onChange={oh} />
           <p>Weigth</p>
-          <input id="weigth" type="text" ref={weigth} onChange={oh}/>
+          <input id="weigth" type="text" ref={weigth} onChange={oh} />
         </div>
         <div className="modal--btns">
           <button className={modalVisible ? "modal--add active" : "modal--add"} onClick={addToArray}>Add</button>

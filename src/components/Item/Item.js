@@ -14,6 +14,7 @@ export default function Item(prop) {
           <p className="item--count">
             In stock: {prop.count}
           </p>
+          <img onClick={() => prop.func()} className="img--delete" src="https://icon-library.com/images/icon-delete/icon-delete-16.jpg" alt="del"/>
         </div>
       </div>
     </div>
