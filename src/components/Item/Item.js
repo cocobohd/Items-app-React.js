@@ -1,7 +1,7 @@
 import React from "react";
 import "./item--style.css"
-import ModalConfirm from "./ModalConfirm/ModalConfirm"
-import ModalView from "./ModalView/ModalView"
+import ModalConfirm from "../Modal/ModalConfirm/ModalConfirm"
+import ModalView from "../Modal/ModalView/ModalView"
 import Comm from "./Comments/Comm";
 import Edit from "./Edit/Edit";
 
@@ -32,7 +32,7 @@ export default function Item(prop) {
     prop.func(prop.index)
   }
 
-  function send() {
+   const send = () => {
     const date = new Date()
     let hours = date.getHours()
     let minutes = date.getMinutes()
@@ -54,18 +54,18 @@ export default function Item(prop) {
     }
 
     const time = `${hours}:${minutes} | ${day}.${month}.${year}`
-    const newComment = {
-      id: Math.floor(Math.random()*100000),
-      productId: prop.id,
-      desctiption: comment.current.value,
-      date: time
-    }
+    const newComment = [
+      ...sendComment,
+      {
+        id: Math.floor(Math.random()*100000),
+        productId: prop.id,
+        desctiption: comment.current.value,
+        date: time
+      }
+    ]
 
-    setModalView(false)
-    
-    sendComment.push(newComment)
+    setSendComment(newComment)
     comment.current.value = ""
-    console.log(sendComment)
   }
 
   function valid() {
@@ -135,7 +135,7 @@ export default function Item(prop) {
               Leave comment?
             </p>
             <textarea className="modalview--textarea" type="textarea" ref={comment} onChange={valid}/>
-            <button className={modalVisible ? "modalview--btn active" : "modalview--btn"} onClick={() => send()}>Send!</button>
+            <button className={modalVisible ? "modalview--btn active" : "modalview--btn"} onClick={send}>Send!</button>
           </div>
       </ModalView>
 
