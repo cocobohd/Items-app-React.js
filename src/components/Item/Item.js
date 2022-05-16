@@ -68,6 +68,10 @@ export default function Item(prop) {
     comment.current.value = ""
   }
 
+  React.useEffect(() => {
+    localStorage.setItem("Com", JSON.stringify(sendComment))
+  }, [sendComment])
+
   function valid() {
     setModalView(true)
     // eslint-disable-next-line

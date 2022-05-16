@@ -41,10 +41,10 @@ export default function App() {
       id: Math.floor(Math.random() * 100000),
       imageUrl: img.current.value,
       name: name.current.value,
-      count: count.current.value,
+      count: parseInt(count.current.value),
       size: {
-        width: width.current.value,
-        heigth: heigth.current.value,
+        width: parseInt(width.current.value),
+        heigth: parseInt(heigth.current.value),
       },
       weight: weight.current.value,
       comments: []
