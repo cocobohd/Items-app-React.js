@@ -28,6 +28,7 @@ export default function App() {
       func={() => deleteTask(index)}
     />
   })
+  
 
   React.useEffect(() => {
     const items = JSON.parse(localStorage.getItem("My Array"));

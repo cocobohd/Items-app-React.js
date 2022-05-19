@@ -8,6 +8,7 @@ import Edit from "./Edit/Edit";
 export default function Item(prop) {
   const [confirmActive, setConfirmActive] = React.useState(false)
   const [modalView, setModalView] = React.useState(false)
+  // eslint-disable-next-line no-unused-vars
   const [sendComment, setSendComment] = React.useState([])
   const [modalVisible, setModalVisible] = React.useState(false)
   const [editView, setEditView] = React.useState(false)
@@ -17,7 +18,9 @@ export default function Item(prop) {
   let heigth = React.createRef()
   let weight = React.createRef()
 
-  let renderComments = sendComment.map((item, index) => {
+  let arrFromLocalStorage = JSON.parse(localStorage.getItem("My Array"))
+
+  let renderComments = arrFromLocalStorage[prop.index].comments.map((item, index) => {
     return <Comm
       key={item.id}
       text={item.desctiption}
@@ -32,7 +35,7 @@ export default function Item(prop) {
     prop.func(prop.index)
   }
 
-   const send = () => {
+  const send = () => {
     const date = new Date()
     let hours = date.getHours()
     let minutes = date.getMinutes()
@@ -55,7 +58,7 @@ export default function Item(prop) {
 
     const time = `${hours}:${minutes} | ${day}.${month}.${year}`
     const newComment = [
-      ...sendComment,
+      ...arrFromLocalStorage[prop.index].comments,
       {
         id: Math.floor(Math.random()*100000),
         productId: prop.id,
@@ -65,12 +68,15 @@ export default function Item(prop) {
     ]
 
     setSendComment(newComment)
+    for (let i = 0; i < newComment.length; i++) {
+      if (arrFromLocalStorage[prop.index].id === newComment[i].productId) {
+        arrFromLocalStorage[prop.index].comments = newComment
+        localStorage.setItem("My Array", JSON.stringify(arrFromLocalStorage))
+      }
+    }
+    
     comment.current.value = ""
   }
-
-  React.useEffect(() => {
-    localStorage.setItem("Com", JSON.stringify(sendComment))
-  }, [sendComment])
 
   function valid() {
     setModalView(true)
@@ -83,15 +89,15 @@ export default function Item(prop) {
   }
 
   function deleteComment(index) {
-    let arr = sendComment.concat()
-    arr.splice(index, 1)
-    setSendComment(arr)
+    let newArr = arrFromLocalStorage[prop.index].comments.splice(index, 1)
+    setSendComment(newArr)
+    localStorage.setItem("My Array", JSON.stringify(arrFromLocalStorage))
   }
   
   function edit() {
     setEditView(true)
-
   }
+
   return (
     <div className="item">
       <div className="item--info">
@@ -116,6 +122,7 @@ export default function Item(prop) {
           </div>
         </ModalConfirm>
       </div>
+
       <ModalView isActive={modalView} setActive={setModalView}>
           <div className="modalviev--div">
             <h1 className="modalviev--title">
@@ -132,7 +139,7 @@ export default function Item(prop) {
             </p>
             <button onClick={() => edit()} className="edit--btn">edit</button>
             <p className="modalview--comments">
-              Comments: {sendComment.length}
+              Comments: {arrFromLocalStorage[prop.index].comments.length === 0 ? "No one leave comments..." : arrFromLocalStorage[prop.index].comments.length}
             </p>
               {renderComments}
             <p>
@@ -161,6 +168,7 @@ export default function Item(prop) {
           <button>Save</button>
         </div>
       </Edit>
+
     </div>
   )
 }
