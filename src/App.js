@@ -14,6 +14,14 @@ export default function App() {
   const [isActive, setActive] = React.useState(false)
   const [array, setArray] = React.useState([])
   const [modalVisible, setModalVisible] = React.useState(false)
+
+  React.useEffect(() => {
+    const items = JSON.parse(localStorage.getItem("My Array"));
+    if (items) {
+      setArray(items);
+    }
+  }, []);
+
   let generalRender = array.map((item, index) => {
     return <Item
       key={item.id}
@@ -26,16 +34,14 @@ export default function App() {
       comments={item.comments}
       index = {index}
       func={() => deleteTask(index)}
+      re={() => newRender()}
     />
   })
-  
 
-  React.useEffect(() => {
+  function newRender() {
     const items = JSON.parse(localStorage.getItem("My Array"));
-    if (items) {
-      setArray(items);
-    }
-  }, []);
+    setArray(items)
+  }
 
   function addToArray() {
     let newItem = {

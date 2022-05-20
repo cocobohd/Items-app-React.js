@@ -98,6 +98,44 @@ export default function Item(prop) {
     setEditView(true)
   }
 
+  function saveChanges() {
+    let newArr = arrFromLocalStorage
+
+    if (count.current.value === '') {
+      newArr[prop.index].count = arrFromLocalStorage[prop.index].count
+    }else {
+      newArr[prop.index].count = parseInt(count.current.value)
+    }
+
+    if (width.current.value === '') {
+      newArr[prop.index].size.width = arrFromLocalStorage[prop.index].size.width
+    }else {
+      newArr[prop.index].size.width = parseInt(width.current.value)
+    }
+    
+    if (heigth.current.value === '') {
+      newArr[prop.index].size.heigth = arrFromLocalStorage[prop.index].size.heigth
+    }else {
+      newArr[prop.index].size.heigth = parseInt(heigth.current.value)
+    }
+
+    if (weight.current.value === '') {
+      newArr[prop.index].weight = arrFromLocalStorage[prop.index].weight
+    }else {
+      newArr[prop.index].weight = weight.current.value
+    }
+
+    localStorage.setItem("My Array", JSON.stringify(newArr))
+
+    count.current.value = ""
+    width.current.value = ""
+    heigth.current.value = ""
+    weight.current.value =""
+
+    setEditView(false)
+    prop.re()
+  }
+
   return (
     <div className="item">
       <div className="item--info">
@@ -155,17 +193,17 @@ export default function Item(prop) {
           <p className="modalview--stock">
             In stock:
           </p>
-          <input type="text" ref={count}/>
+          <input type="number" ref={count}/>
           <p className="modalview--size">
             Width and Height: 
           </p>
-          <input type="text" ref={width}/>
-          <input type="text" ref={heigth}/>
+          <input type="number" ref={width} placeholder="Width..."/>
+          <input type="number" ref={heigth} placeholder="Heigth..."/>
           <p className="modalview--weight">
             Weight:
           </p>
-          <input type="text" ref={weight}/>
-          <button>Save</button>
+          <input type="text" ref={weight} maxLength={10}/>
+          <button onClick={() => saveChanges()}>Save</button>
         </div>
       </Edit>
 
